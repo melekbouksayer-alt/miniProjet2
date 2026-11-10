@@ -1,0 +1,58 @@
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h4 class="mb-3">{{ ajout ? 'Ajouter un avion' : 'Modifier un avion' }}</h4>
+
+    <form #avionForm="ngForm" (ngSubmit)="saveAvion()">
+      @if (!ajout) {
+        <div class="mb-2">
+          <label for="idAvion" class="form-label">Id Avion</label>
+          <input id="idAvion" class="form-control" type="number"
+                 [ngModel]="avion.idAvion" name="idAvion" readonly>
+        </div>
+      }
+
+      <div class="mb-2">
+        <label for="matricule" class="form-label">Matricule</label>
+        <input id="matricule" class="form-control" type="text"
+               [(ngModel)]="avion.matricule" name="matricule" required>
+      </div>
+
+      <div class="mb-2">
+        <label for="modele" class="form-label">Modèle</label>
+        <input id="modele" class="form-control" type="text"
+               [(ngModel)]="avion.modele" name="modele" required>
+      </div>
+
+      <div class="mb-2">
+        <label for="compagnie" class="form-label">Compagnie aérienne</label>
+        <select id="compagnie" class="form-select"
+                [(ngModel)]="avion.compagnie.idCompagnie" name="compagnie" required>
+          <option [ngValue]="undefined" disabled>Choisir une compagnie</option>
+          @for (compagnie of compagnies; track compagnie.idCompagnie) {
+            <option [ngValue]="compagnie.idCompagnie">{{ compagnie.nomCompagnie }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="mb-2">
+        <label for="capacite" class="form-label">Capacité</label>
+        <input id="capacite" class="form-control" type="number"
+               [(ngModel)]="avion.capacite" name="capacite" min="1" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="dateMiseEnService" class="form-label">Date mise en service</label>
+        <input id="dateMiseEnService" class="form-control" type="date"
+               [(ngModel)]="dateMiseEnService" name="dateMiseEnService">
+      </div>
+
+      <button class="btn btn-success" type="submit"
+              [disabled]="!avionForm.valid || !avion.compagnie?.idCompagnie">
+        {{ ajout ? 'Ajouter' : 'Modifier' }}
+      </button>
+      @if (!ajout) {
+        <span class="text-muted ms-2 small">Modifiez les informations puis cliquez sur Modifier.</span>
+      }
+    </form>
+  </div>
+</div>

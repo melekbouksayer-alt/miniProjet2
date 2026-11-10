@@ -1,0 +1,77 @@
+<div class="container mt-4">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+
+      <h2>Modifier un Avion :</h2>
+
+      <form>
+        <div class="row">
+
+          <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+            <label>Id Avion</label>
+            <input readonly
+                   type="number"
+                   [(ngModel)]="currentAvion.idAvion"
+                   name="idAvion"
+                   class="form-control">
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+            <label>Matricule</label>
+            <input type="text"
+                   [(ngModel)]="currentAvion.matricule"
+                   name="matricule"
+                   class="form-control">
+          </div>
+
+          <div class="col-sm-6 col-md-6 col-lg-6 mb-3">
+            <label>Modèle</label>
+            <input type="text"
+                   [(ngModel)]="currentAvion.modele"
+                   name="modele"
+                   class="form-control">
+          </div>
+
+          <div class="col-sm-6 col-md-6 col-lg-6 mb-3">
+            <label for="updatedCompagnieId">Compagnie aérienne</label>
+            <select class="form-select"
+                    id="updatedCompagnieId"
+                    name="updatedCompagnieId"
+                    [(ngModel)]="updatedCompagnieId">
+              @for (compagnie of compagnies; track compagnie.idCompagnie) {
+                <option [ngValue]="compagnie.idCompagnie">{{ compagnie.nomCompagnie }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="col-sm-3 col-md-3 col-lg-3 mb-3">
+            <label>Capacité</label>
+            <input type="number"
+                   [(ngModel)]="currentAvion.capacite"
+                   name="capacite"
+                   class="form-control">
+          </div>
+
+          <div class="col-sm-3 col-md-3 col-lg-3 mb-3">
+            <label>Date mise en service</label>
+            <input type="date"
+                   [ngModel]="currentAvion.dateMiseEnService | date:'yyyy-MM-dd'"
+                   (ngModelChange)="currentAvion.dateMiseEnService = $event"
+                   name="dateMiseEnService"
+                   class="form-control">
+          </div>
+
+        </div>
+
+        <div class="mt-2">
+          <button type="button"
+                  (click)="updateAvion()"
+                  class="btn btn-success">
+            Modifier
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

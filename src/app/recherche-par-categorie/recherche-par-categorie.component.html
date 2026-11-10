@@ -1,0 +1,64 @@
+
+<div class="container mt-4">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+
+      <h2>Recherche par catégorie</h2>
+
+      <div class="mb-3">
+        <label for="compagnie" class="form-label">
+          Choisir une compagnie aérienne
+        </label>
+
+        <select
+          id="compagnie"
+          name="idCompagnie"
+          class="form-select"
+          [(ngModel)]="idCompagnie"
+          (change)="onChange()"
+        >
+          <option [ngValue]="0">Toutes les compagnies</option>
+
+          @for (compagnie of compagnies; track compagnie.idCompagnie) {
+            <option [ngValue]="compagnie.idCompagnie">
+              {{ compagnie.nomCompagnie }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+             <th>Id</th>
+            <th>Matricule</th>
+            <th>Modèle</th>
+            <th>Compagnie</th>
+            <th>Capacité</th>
+            <th>Date mise en service</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (avion of avions; track avion.idAvion) {
+            <tr>
+                <td>{{ avion.idAvion }}</td>
+              <td>{{ avion.matricule }}</td>
+              <td>{{ avion.modele }}</td>
+              <td>{{ avion.compagnie.nomCompagnie }}</td>
+              <td>{{ avion.capacite }}</td>
+              <td>{{ avion.dateMiseEnService | date:'dd/MM/yyyy' }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="text-center">
+                Aucun avion trouvé !
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
